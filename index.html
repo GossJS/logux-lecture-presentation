@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Применение Logux</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/styles.css">
+    <style>
+      .shower {
+        --slide-ratio: calc(16 / 9);
+      }
+    </style>
+  </head>
+
+  <body class="shower list">
+    <header class="caption">
+      <h1>Применение Logux</h1>
+
+      <p>
+        Николай Говоров из ВКонтакте
+      </p>
+    </header>
+
+    <section class="slide" id="cover">
+      <style>
+        #cover h2 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding-bottom: 81px;
+          font-size: 90px;
+          text-align: center;
+          box-sizing: border-box;
+        }
+      </style>
+
+      <h2>Применение Logux</h2>
+    </section>
+
+    <!--
+    <section class="slide">
+      <ul>
+        <li>
+          <h2><a href="/#SQ">Что мы имеем</a></h2>
+        </li>
+
+        <li>
+          <h2><a href="/#logux-resolve">Как это решает Logux</a></h2>
+        </li>
+
+        <li>
+          <h2><a href="/#demo">Как это </a></h2>
+        </li>
+
+        <li>
+          <h2><a href="/#problems">Подводные камни</a></h2>
+        </li>
+      </ul>
+    </section>
+    -->
+
+    <section class="slide" id="SQ">
+      <img class="cover" src="/pictures/Classic concept.svg" alt="">
+    </section>
+
+    <section class="slide">
+      <h2>Офлайн</h2>
+
+      <img class="cover" src="./pictures/evernote_offline.png" alt="">
+    </section>
+
+    <section class="slide">
+      <h2>Несколько соединений с устройства</h2>
+
+      <img class="cover many_connects" src="./pictures/many connects.svg" alt="">
+
+      <style scoped>
+        .many_connects {
+          width: 65%;
+          top: 60%;
+        }
+      </style>
+    </section>
+
+    <section class="slide">
+      <h2>Синхронизации</h2>
+
+      <div class="columns three state_images_container">
+        <img src="./pictures/initial_state.png" alt="">
+
+        <img src="./pictures/first_state.png" alt="">
+
+        <img src="./pictures/second_state.png" alt="">
+      </div>
+
+      <style scoped>
+        .state_images_container {
+          margin: 0 -40px;
+          width: calc(100% + 80px);
+        }
+
+        .state_images_container img {
+          --img-margin: 35px;
+
+          max-width: calc(100% + var(--img-margin) * 2);
+          margin: calc(-1 * var(--img-margin));
+        }
+      </style>
+    </section>
+    
+    <section id="superhero">
+      <figure>
+        <img class="cover " src="pictures/superhero.jpg">
+      </figure>
+
+      <style>
+        #superhero img {
+          width: 100%;
+        }
+      </style>
+    </section>
+
+    <section class="slide" id="logux-resolve">
+      <h2 class="cover logux-title">
+        <b>Logux</b> – платформа для взаимодействия сервера с клиентами
+      </h2>
+
+      <style scoped>
+        #logux-resolve .logux-title {
+          font-size: 3em;
+          width: 80%;
+          text-align: center;
+          font-weight: normal;
+          line-height: 1.5;
+        }
+      </style>
+    </section>
+
+    <section class="slide">
+      <img class="cover" src="/pictures/Logux concept.svg" alt="">
+    </section>
+
+    <section class="slide" id="demo">
+      <h2>Logux хранит лог изменений состояния</h2>
+
+      <div class="columns two logux_state_images_container">
+        <div>
+          <ol>
+            <li>create note</li>
+            <li>update first note text</li>
+          </ol>
+
+          <img src="./pictures/first_state.png" alt="">
+        </div>
+
+        <div>
+          <ol>
+            <li>create note</li>
+            <li>added likes to the first article</li>
+          </ol>
+
+          <img src="./pictures/second_state.png" alt="">
+        </div>
+      </div>
+
+      <style scoped>
+        #demo {
+          padding-top: 51px;
+        }
+
+        .logux_state_images_container {
+          max-width: 100%;
+        }
+
+        .logux_state_images_container img {
+          --img-margin: 35px;
+
+          max-width: calc(100%  - 20px);
+          margin: calc(-1 * var(--img-margin));
+        }
+      </style>
+    </section>
+    
+    <section>
+      <h2>Структура платформы</h2>
+
+      <img src="./pictures/logux%20strucutre.svg" alt="" class="cover logux-structure">
+
+      <style>
+        .logux-structure {
+          width: 80% !important;
+        }
+      </style>
+    </section>
+
+    <section class="slide" id="client-example">
+      <h2>Инициализация на клиенте</h2>
+
+      <pre>
+        <code>import createLoguxCreator from 'logux-redux/create-logux-creator'</code>
+        <code> </code>
+        <code>const createStore = createLoguxCreator({</code>
+        <code>  subprotocol: '1.0.0', server: 'wss://localhost:1337', userId: 10</code>
+        <code>})</code>
+        <code> </code>
+        <code>function reducer (state, action) {</code>
+        <code>  return action.type === 'INC' ? { value: state.value + 1 } : state</code>
+        <code>}</code>
+        <code> </code>
+        <code>const store = createStore(reducer, { value: 0 }, enhancer);</code>
+        <code> </code>
+        <code>store.client.start()</code>
+      </pre>
+
+      <style>
+        #client-example {
+          padding-top: 41px;
+        }
+
+        #client-example pre {
+          transform: scale(0.6);
+          margin-top: -15%;
+          margin-left: -20%;
+        }
+      </style>
+    </section>
+
+    <section class="slide" id="server-example">
+      <h2>Инициализация на сервере</h2>
+
+      <div></div>
+
+      <pre>
+        <code>const { Server } = require('logux-server');</code>
+        <code> </code>
+        <code>const app = new Server(Server.loadOptions(process, {</code>
+        <code>  subprotocol: '1.0.0', supports: '1.x', root: __dirname</code>
+        <code>}));</code>
+        <code> </code>
+        <code>app.auth(async (userId, token) => {</code>
+        <code>  /* Check token and return a true or false. */</code>
+        <code>})</code>
+        <code> </code>
+        <code>app.listen();</code>
+      </pre>
+
+      <style>
+        #server-example {
+          padding-top: 41px;
+        }
+
+        #server-example pre {
+          transform: scale(0.8);
+          margin-top: -8%;
+          margin-left: -10%;
+        }
+      </style>
+    </section>
+
+    <section class="slide">
+      <h2>События на клиенте</h2>
+
+      <pre>
+        <code>store.dispatch.crossTab( /* .sync, .local */</code>
+        <code>  { type: 'CHANGE_NAME', name },</code>
+        <code>  { channels: ['user/10'] }</code>
+        <code>)</code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>Каналы на клиенте</h2>
+
+      <pre>
+        <code>store.dispatch.crossTab( /* .sync, .local */</code>
+        <code>  { type: 'CHANGE_NAME', name }, { reasons: ['lastName'] }</code>
+        <code>).then(meta => {</code>
+        <code>  store.log.removeReason('lastName', {</code>
+        <code>    maxAdded: meta.added - 1</code>
+        <code>  })</code>
+        <code>})</code>
+      </pre>
+    </section>
+
+    <section class="slide" id="server-event">
+      <h2>Обработка события на сервере</h2>
+
+      <pre>
+        <code>app.type('CHANGE_NAME', {</code>
+        <code>  access (action, meta, creator) {</code>
+        <code>    return action.user === creator.userId;</code>
+        <code>  },</code>
+        <code>  process (action) {</code>
+        <code>    return users.find({ id: action.user }).then(user => {</code>
+        <code>      user.update({ name: action.name })</code>
+        <code>    })</code>
+        <code>  }</code>
+        <code>})</code>
+      </pre>
+
+      <style>
+        #server-event {
+          padding-top: 41px;
+        }
+
+        #server-event pre {
+          transform: scale(0.8);
+          margin-top: -8%;
+          margin-left: -10%;
+        }
+      </style>
+    </section>
+
+    <section id="server-channels">
+      <h2>Каналы на сервере</h2>
+
+      <pre>
+        <code>app.channel('user/:id', (params, action, meta, creator) => {</code>
+        <code>  if (params.id !== creator.userId) { // Access denied</code>
+        <code>    return false</code>
+        <code>  } else {</code>
+        <code>    // Sending initial state</code>
+        <code>    db.loadUser(params.id).then(user => {</code>
+        <code>      app.log.add(</code>
+        <code>        { type: 'USER_NAME', name: user.name },</code>
+        <code>        { nodeIds: [creator.nodeId], time: user.nameChangedAt * 1000 }</code>
+        <code>      )</code>
+        <code>    })</code>
+        <code>    return true</code>
+        <code>  }</code>
+        <code>})</code>
+      </pre>
+
+      <style>
+        #server-channels {
+          padding-top: 41px;
+        }
+
+        #server-channels pre {
+          transform: scale(0.6);
+          margin-top: -18%;
+          margin-left: -20%;
+        }
+      </style>
+    </section>
+
+		<section>
+			<iframe width="100%" height="100%" class="cover" src="https://logux.github.io/logux-status/"></iframe>
+		</section>
+
+		<section>
+			<h2>Проблемы?</h2>
+
+			<ul>
+				<li class="next">Версия 0.2</li>
+				<li class="next">Нет документации</li>
+			</ul>
+		</section>
+
+    <section class="slide">
+      <h2>Итого:</h2>
+
+      <ul>
+        <li class="next">Невилирование времени затраченного на запрос</li>
+        <li class="next">Работа в офлайне</li>
+        <li class="next">Синхронизации между вкладками/клиентами/устройствами</li>
+        <li class="next">Интеграция с хранилищами Redux/Vuex и фреймворками React/Vue</li>
+        <li class="next">UI библиотека, позволяющая сообщать пользователю состояние канала</li>
+        <li class="next">Возможность внедрять в существующую архитектуру</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Ссылочная:</h2>
+
+      <ul>
+        <li>
+          Организация на GitHub
+          <a href="https://github.com/logux">https://github.com/logux</a>
+        </li>
+        <li>
+          Доклад Ситника о Logux
+          <a href="https://www.youtube.com/watch?v=1RMhUPsVw2M">https://www.youtube.com/watch?v=1RMhUPsVw2M</a>
+        </li>
+        <li>
+          Ещё доклад Ситника
+          <a href="https://www.youtube.com/watch?v=1RMhUPsVw2M">https://www.youtube.com/watch?v=le6FeAJ30Zw</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <ul>
+        <li>
+          <a href="https://govorov.online">govorov.online</a>
+        </li>
+        <li>
+          <a href="mailto:me@govorov.online">me@govorov.online</a>
+        </li>
+        <li>
+          Twitter <a href="https://twitter.com/govorov_n">@govorov_n</a>
+        </li>
+        <li>
+          GitHub <a href="https://github.com/nikolay-govorov">@nikolay-govorov</a>
+        </li>
+        <li>
+          ВКонтакте <a href="https://vk.com/nikolay_govorov">@nikolay_govorov</a>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="badge">
+      <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+    </footer>
+
+    <div class="progress"></div>
+
+    <script>
+      const slides = document.querySelectorAll('body > section:not(.slide)');
+
+      for (const slide of slides) {
+        slide.classList.add('slide');
+      }
+    </script>
+
+    <script src="shower/shower.min.js"></script>
+  </body>
+</html>
